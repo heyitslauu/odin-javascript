@@ -1,0 +1,250 @@
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  /*
+    2. Remove default margin
+  */
+  * {
+    margin: 0;
+  }
+  /*
+    Typographic tweaks!
+    3. Add accessible line-height
+    4. Improve text rendering
+  */
+  body {
+    line-height: 1.5;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  /*
+    5. Improve media defaults
+  */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  /*
+    6. Remove built-in form typography styles
+  */
+  input, button, textarea, select {
+    font: inherit;
+  }
+  /*
+    7. Avoid text overflows
+  */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  /*
+    8. Create a root stacking context
+  */
+  #root, #__next {
+    isolation: isolate;
+  }
+
+
+  :root {
+    --main-color: #E2E8F0;
+    --accent-gray: #6B7280;
+  }
+
+  body{
+    height: 100%;
+    background-color: var(--main-color);
+  }
+
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    padding: .5em;
+  }
+
+  .space-between {
+    justify-content: space-between;
+  }
+
+  header {
+    background-color: aliceblue;
+    box-shadow: 2px 5px 2px  #ccc;
+    font-size: 120%;
+    color: var(--accent-gray);
+  }
+
+  .btn-add {  
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 50%;
+    background-color: #3730A3;
+    color: white;
+
+  }
+
+  .main__content {
+    margin-top: 2em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 250px;
+    gap: 1em;
+  }
+  
+  .book-card {
+    color: white;
+    background-image: linear-gradient(to top, #1c9999 0%, #330867 100%);
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 3px 3px  #c7c7c7;
+    border-radius: 8px;
+
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .book_title{
+    font-size: clamp(1.2rem, 10ch, 1.8rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  
+
+  .author-pages {
+    text-align: center;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: .5em; 
+    font-weight: 400;
+    color: white;
+  }
+
+
+  .card-btn {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    border: 1px solid aliceblue;
+    border-radius: 4px;
+    padding: .5em 0;
+    margin-top: auto;
+    transition: .5s;
+  }
+
+  /* .btn-delete {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    border: 1px solid aliceblue;
+    border-radius: 4px;
+    padding: .5em 0;
+    margin-top: auto;
+    transition: .5s;
+  } */
+  
+  .card-btn:hover {
+    background-color: white;
+    color: #3730A3;
+  }
+ 
+  .btn-delete:hover {
+    color: #830021;
+  }
+
+  footer {
+    border-top: 2px solid #ccc;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    gap: 2em;
+    align-items: center; 
+    justify-content: center;
+  }
+  .github-mark {
+    height: 40px;
+    width: 40px;
+  }
+
+
+  dialog {
+    border: none;
+    position: fixed;
+    top: 50%;
+    padding: 2em;
+    left: 50%;
+    translate: -50% -50%;
+    border-radius: 6px;
+  }
+  
+
+  form {  
+    gap: .5em;
+  }
+
+  .form-title {
+    text-align: center;
+    font-size: 140%;
+    font-weight: 100;
+    text-transform: uppercase;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #formDialog {
+    position: relative;
+  }
+  .is_read {
+    display: flex;
+    gap: 1em;
+  }
+
+  .btn-submit {
+    border: none;
+    outline: none;
+    background-color: #3730A3;
+    color: white;
+    border-radius: 4px;
+    padding: .5em 0;
+    
+  }
+
+  .btn-close {
+    border: none;
+    background: transparent;
+    outline: none;
+    color: #ccc;
+    padding: .5em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .4s;
+  }
+
+  .btn-close:hover {
+    color: black;
+  }
+/* 
+  dialog::backdrop {
+    background-color: red;
+  } */
