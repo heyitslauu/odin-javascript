@@ -10,6 +10,12 @@
   * {
     margin: 0;
   }
+
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  
   /*
     Typographic tweaks!
     3. Add accessible line-height
@@ -17,6 +23,7 @@
   */
   body {
     line-height: 1.5;
+    margin-bottom: 100px;
     font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
@@ -53,7 +60,6 @@
   }
 
   body{
-    height: 100%;
     background-color: var(--main-color);
   }
 
@@ -76,7 +82,6 @@
     background-color: aliceblue;
     box-shadow: 2px 5px 2px  #ccc;
     font-size: 120%;
-    color: var(--accent-gray);
   }
 
   .btn-add {  
@@ -92,7 +97,6 @@
     margin-top: 2em;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 250px;
     gap: 1em;
   }
   
@@ -166,17 +170,19 @@
   }
 
   footer {
-    border-top: 2px solid #ccc;
-    width: 100%;
     position: absolute;
     bottom: 0;
-    gap: 2em;
-    align-items: center; 
+    width: 100%;
+    font-weight: 700;
+    gap: .5em;
+    background-color: aliceblue;
+    border-top: 2px solid #ccc;
+    align-items: center;
     justify-content: center;
   }
   .github-mark {
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
   }
 
 
@@ -198,12 +204,13 @@
   .form-title {
     text-align: center;
     font-size: 140%;
-    font-weight: 100;
+    font-weight: 400;
     text-transform: uppercase;
   }
 
   label {
     font-weight: bold;
+    font-weight: 400;
   }
 
   .flex-col {
@@ -211,9 +218,6 @@
     flex-direction: column;
   }
 
-  #formDialog {
-    position: relative;
-  }
   .is_read {
     display: flex;
     gap: 1em;
