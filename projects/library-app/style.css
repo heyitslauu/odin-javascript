@@ -3,6 +3,7 @@
 */
 *, *::before, *::after {
     box-sizing: border-box;
+    text-decoration: none;
   }
   /*
     2. Remove default margin
@@ -55,8 +56,9 @@
 
 
   :root {
-    --main-color: #E2E8F0;
-    --accent-gray: #6B7280;
+    --base: #ffffff;
+    --main-color: #2BAE66;
+    --accent: #FCF6F5;
   }
 
   body{
@@ -79,8 +81,9 @@
   }
 
   header {
-    background-color: aliceblue;
-    box-shadow: 2px 5px 2px  #ccc;
+    background-color: var(--main-color);
+    color: var(--accent);
+    box-shadow: 2px 2px 3px var(--accent);
     font-size: 120%;
   }
 
@@ -88,8 +91,8 @@
     cursor: pointer;
     font-weight: bold;
     border-radius: 50%;
-    background-color: #3730A3;
-    color: white;
+    background-color: var(--accent);
+    color: var(--main-color);
 
   }
 
@@ -97,48 +100,45 @@
     margin-top: 2em;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: minmax(250px, 1fr);
     gap: 1em;
   }
   
   .book-card {
-    color: white;
-    background-image: linear-gradient(to top, #1c9999 0%, #330867 100%);
-    border: 1px solid #ccc;
-    padding: 10px;
+    position: relative;
+    color: var(--accent);
+    background-image: linear-gradient(to top, #026e6e 0%, #067735 100%);
+    /* border: 1px solid #ccc; */
+    padding: 2em;
     margin: 10px;
-    box-shadow: 3px 3px  #c7c7c7;
+    /* box-shadow: 2px 2px 2px 1px var(--main-text); */
     border-radius: 8px;
-
-    padding: 1em;
+    
     display: flex;
     flex-direction: column;
-    text-align: center;
   }
 
+
+  .book-card.read {
+    background-image: linear-gradient(to top, #353535 0%, #313131 100%);
+  }
   .book_title{
-    font-size: clamp(1.2rem, 10ch, 1.8rem);
-    font-weight: 400;
+    font-size: clamp(2rem, 20ch, 2.4rem);
+    font-weight: 700;
     margin-bottom: 1rem;
   }
-  
 
-  .author-pages {
-    text-align: center;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    gap: .5em; 
+  .book_author {
     font-weight: 400;
-    color: white;
+    font-size: clamp(1rem, 10vw, 1.4rem);
   }
-
-
+  
   .card-btn {
     outline: none;
     border: none;
     cursor: pointer;
     background-color: transparent;
-    color: white;
+    color: var(--base);
     font-weight: bold;
     border: 1px solid aliceblue;
     border-radius: 4px;
@@ -147,24 +147,19 @@
     transition: .5s;
   }
 
-  /* .btn-delete {
-    outline: none;
-    border: none;
-    background-color: transparent;
-    color: white;
-    font-weight: bold;
-    border: 1px solid aliceblue;
-    border-radius: 4px;
-    padding: .5em 0;
-    margin-top: auto;
-    transition: .5s;
-  } */
+  .book_pages {
+    margin-bottom: 1em;
+  }
   
   .card-btn:hover {
-    background-color: white;
+    background-color: var(--base);
     color: #3730A3;
   }
  
+  .btn-delete {
+    margin-top: auto;
+  }
+
   .btn-delete:hover {
     color: #830021;
   }
@@ -175,8 +170,7 @@
     width: 100%;
     font-weight: 700;
     gap: .5em;
-    background-color: aliceblue;
-    border-top: 2px solid #ccc;
+    background-color: var(--base);
     align-items: center;
     justify-content: center;
   }
@@ -195,7 +189,25 @@
     translate: -50% -50%;
     border-radius: 6px;
   }
+
+  dialog::backdrop {
+    background-color: #201e1e;
+    opacity: .3;
+  }
+
+  dialog[open] {
+    animation: fadein .4s ease-in forwards;
+  }
   
+  
+  @keyframes fadein{
+    0%{
+      transform: scale(.9);
+    }
+    100%{
+      transform: scale(1.1);
+    }
+  }
 
   form {  
     gap: .5em;
@@ -204,13 +216,13 @@
   .form-title {
     text-align: center;
     font-size: 140%;
-    font-weight: 400;
+    font-weight: 700;
     text-transform: uppercase;
+    margin-bottom: .6em;
   }
 
   label {
     font-weight: bold;
-    font-weight: 400;
   }
 
   .flex-col {
@@ -223,11 +235,22 @@
     gap: 1em;
   }
 
+  input{
+    border: 1px solid #ccc;
+    outline: none;
+  }
+
+  input:focus {
+    border: 1px solid black;
+  }
+
   .btn-submit {
+    margin-top: 1em;
     border: none;
     outline: none;
-    background-color: #3730A3;
-    color: white;
+    background-color: var(--main-color);
+    color: var(--base);
+    font-weight: 700;
     border-radius: 4px;
     padding: .5em 0;
     
@@ -246,9 +269,24 @@
   }
 
   .btn-close:hover {
+    color: var(--main-color);
+  }
+
+  .fa-xmark {
+    font-size: 180%;
+  }
+
+  .gh-link {
+    cursor: pointer;
     color: black;
   }
-/* 
-  dialog::backdrop {
-    background-color: red;
-  } */
+
+  .marked-read {
+    display: flex;
+    font-weight: bold;
+    gap: .5em;
+    align-items: center;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
