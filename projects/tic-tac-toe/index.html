@@ -3,12 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/tictactoe.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/66e98214bd.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <title>Tic Tac Toe</title>
 </head>
 <body>
     <div id="gameBoard"></div>
+    <div id="game-modal">
+        <div id="game-starter">
+            <h1>Tic Tac Toe</h1>
+            <form class="game-controls" id="playerStarter">
+                <div class="flex-col">
+                    <img src="./assets/cross.svg" class="game-moves" alt="Cross Shape TicTacToe">
+                    <div class="flex-col player-fill">
+                        <label for="player1"><i class="fa-regular fa-user"></i>Player 1</label>
+                        <input type="text" required placeholder="Lauu">
+                    </div>
+                </div>
+                <div class="flex-col">
+                    <img src="./assets/circle.svg" class="game-moves circle" alt="Circle Shape TicTacToe">
+                    <div class="flex-col player-fill">
+                        <label for="player1"><i class="fa-regular fa-user"></i>Player 2</label>
+                        <input type="text" required placeholder="Octocat">
+                    </div>
+                </div>
+            </form>
+            <div>
+                <button type="submit" class="startBtn" form="playerStarter">Start game</button>
+            </div>
+        </div>
+    </div>
     
+    <footer class="footer"></footer>
+   
     <script src="app.js"></script>
 </body>
 </html>
