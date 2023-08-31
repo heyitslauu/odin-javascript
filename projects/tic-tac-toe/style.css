@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 /*
   1. Use a more-intuitive box-sizing model.
 */
 *, *::before, *::after {
     box-sizing: border-box;
+    text-decoration: none;
   }
   /*
     2. Remove default margin
@@ -45,34 +47,153 @@
     isolation: isolate;
   }
 
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
   :root {
-    --text-color: #ffffff;
+    --base: #063970;
+    --accent: #f8fa1d;
+    --supporting: #05294d;
+    --neutral: #e6e0e0;
+    --white: #fff;
   }
 
   body {
+    font-family: 'Roboto', sans-serif;
     height: 100vh;
     color: var(--text-color);
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    background-color: rgb(16, 2, 39);
+    background-color: var(--base)
   }
 
   #gameBoard {
     height: 600px;
     width: 600px;
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--neutral);
     display: grid;
     grid-template-columns: repeat(3, 200px);
+    grid-auto-rows: 200px;
   }
 
   .cell {
     cursor: pointer;
-    border: solid 2px var(--text-color);
+    border: solid 2px var(--neutral);
     transition: .4s;
   }
 
   .cell:hover {
-    background-color: rgb(43, 7, 100);
+    background-color: var(--supporting)
+  }
+
+
+  #game-modal {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: var(--supporting);
+    color: var(--accent);
+    height: 100vh;
+  }
+
+  #game-modal.fade-in {
+    animation: fadein .4s ease-in forwards;
+  }
+
+  @keyframes fadein{
+    0%{
+      opacity: .4;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+
+  #game-starter {
+    background-color: var(--supporting);
+    margin: 0 auto;
+    width: 40%;
+    border-radius: 8px;
+    padding: 4em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1em;
+  }
+
+  .game-controls {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    justify-content: center;
+  }
+  .game-moves {
+    background-color: var(--base);
+    border-radius: 10px;
+    padding: 2em;
+    height: 200px;
+  }
+
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .player-fill {
+    margin-top: .8em;
+    font-weight: 700;
+    gap: .3em;
+    font-size: 150%;
+  }
+
+  label {
+    display: flex;
+    gap: .5em;
+    align-items: center;
+    justify-content: center;
+  }
+  .circle {
+    color: black;
+  }
+
+  .startBtn {
+    background-color: var(--accent);
+    color: var(--supporting);
+    font-weight: 700;
+    padding: 1rem 3em;
+    border-radius: 8px;
+    border: none;
+    font-size: 120%;
+    outline: none;
+  }
+
+  input {
+    color: var(--base);
+    padding: .4em 1em;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1em 0;
+    text-align: center;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .gh-link {
+    color: var(--white);
   }
