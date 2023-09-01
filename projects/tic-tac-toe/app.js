@@ -1,18 +1,37 @@
 const boardCells = document.querySelectorAll('.cell');
 const gameBoard = document.getElementById('gameBoard');
+const gameForm = document.getElementById('playerStarter');
+const gameModal = document.getElementById('game-modal');
+const turn = document.getElementById('player-info');
+const winnerDialog = document.getElementById('winner-alert');
+const winner = document.createElement('h1');
+const restart = document.querySelector('.restartBtn');
 
 const GameBoard = (() => {
     "use strict";
-
+    
     let startingCells = ["","","","","","","","","",]
     
+    let player1, player2;
+    let playersCreated = false;
+    let currentPlayer;
+    let gameWinner;
+    let moved = 0;
+
+    const winningCombination = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+    ]
     //Starting asset path for 'cross' sign
     let startingSign = './assets/cross.svg';
-    
+    let startingMoveClass = 'cross';
+
     const createGameBoard  = () => {
         startingCells.forEach((cell, index) => {
             const block = document.createElement('div');
             block.classList.add('cell')
+            block.style.padding = "2.5em";
             
             // Set data-index attribute
             block.setAttribute('data-index', index); 
@@ -23,29 +42,116 @@ const GameBoard = (() => {
             //adds a div to the gameboard to have a 3x3 grid
             gameBoard.append(block)
         })
+        //Show current player when board is created
+        turn.textContent =  `${currentPlayer.getName()} 's Turn`;
     }
 
     const updateBlock = (e) => {
-        const img = document.createElement('img');
-        img.src = startingSign;
+        moved++;
+        if(gameWinner == undefined || moved != 9) {
+            currentPlayer = currentPlayer === player1 ? player2 : player1;
+            turn.textContent =  `${currentPlayer.getName()} 's Turn`;
 
-        //Change the current sign to the next sign path
-        startingSign = startingSign === './assets/cross.svg' ? './assets/circle.svg' : './assets/cross.svg';                               
-        e.target.append(img)
-        
-        e.target.removeEventListener('click', updateBlock)
+            const img = document.createElement('img');
+            img.src = startingSign;
+            img.className = startingMoveClass;
+
+            //Change the current sign to the next sign path
+            startingSign = startingSign === './assets/cross.svg' ? './assets/circle.svg' : './assets/cross.svg';
+            startingMoveClass = startingMoveClass === 'cross' ? 'circle' : 'cross';
+            e.target.append(img)
+            
+            e.target.removeEventListener('click', updateBlock)
+            checkScore();
+        }
+        if(gameWinner == undefined && moved >= 9) { 
+            turn.textContent =  ``;
+            winner.innerHTML = `ITS A TIE!`;
+            winnerDialog.prepend(winner);
+            winnerDialog.classList.add('show');
+        }
     }
 
-    return { createGameBoard }
+    const createPlayers = (name1, name2) => {
+        player1 = Player(name1, 'x');
+        player2 = Player(name2, 'o');
+
+        playersCreated = true;
+    
+        if(playersCreated) {
+            gameModal.style.display = 'none';
+            currentPlayer = player1
+            createGameBoard();
+        }
+       
+    }
+
+    const checkScore = () => {
+        const cells = document.querySelectorAll('.cell');
+       
+
+        winningCombination.forEach((array) => {
+            let p2Winner = array.every(cell => cells[cell].firstChild?.classList.contains('circle'))
+
+            if(p2Winner) {
+                winner.innerHTML = `${player2.getName()} wins`;
+                winnerDialog.prepend(winner);
+                winnerDialog.classList.add('show');
+                cells.forEach(cell => cell.replaceWith(cell.cloneNode(true)))
+                gameWinner = 'player1'
+                return;
+            }
+        })
+
+        winningCombination.forEach((array) => {
+            let p1Winner = array.every(cell => cells[cell].firstChild?.classList.contains('cross'))
+
+            if(p1Winner) {
+                winner.innerHTML = `${player1.getName()} wins`;
+                winnerDialog.prepend(winner);
+                winnerDialog.classList.add('show');
+                cells.forEach(cell => cell.replaceWith(cell.cloneNode(true)))
+                gameWinner = 'player2'
+                return;
+            }
+        })
+    }
+
+    const resetBoard = () => {
+        gameBoard.innerHTML = ''
+        currentPlayer = player1;
+        moved = 0;
+        startingSign = './assets/cross.svg';
+        startingMoveClass = 'cross';
+        createGameBoard();
+        winnerDialog.classList.remove('show');
+    }
+
+
+    return { createGameBoard, createPlayers, resetBoard}
 
 })();
 
+const Player = function (name, move) {
+    const getName = () => name;
+    const getMove = () => move;
+    return {
+        getName,
+        getMove
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    const gameModal = document.getElementById('game-modal');
     gameModal.classList.add('fade-in');
     createCopyRight();
-    GameBoard.createGameBoard()
+})
+
+gameForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const playerName1 = document.getElementById('player1').value;
+    const playerName2 = document.getElementById('player2').value;
+
+    GameBoard.createPlayers(playerName1, playerName2)
 })
 
 const createCopyRight = () => {
@@ -55,3 +161,7 @@ const createCopyRight = () => {
     copyRight.innerHTML =  `Copyright © ${date} <a href="https://github.com/heyitslauu" class="gh-link">heyitslauu</a>`
     footer.prepend(copyRight)
 }
+
+restart.addEventListener('click', () => {
+    GameBoard.resetBoard();
+})
