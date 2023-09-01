@@ -93,7 +93,6 @@
 
   #game-modal {
     opacity: 0;
-    transition: opacity 1s ease-in-out;
     position: absolute;
     top: 0;
     left: 0;
@@ -119,7 +118,6 @@
   #game-starter {
     background-color: var(--supporting);
     margin: 0 auto;
-    width: 40%;
     border-radius: 8px;
     padding: 4em;
     position: fixed;
@@ -133,6 +131,10 @@
     gap: 1em;
   }
 
+  .game-title {
+    font-size: 5rem;
+  }
+  
   .game-controls {
     display: flex;
     align-items: center;
@@ -168,15 +170,22 @@
     color: black;
   }
 
-  .startBtn {
+  .btn {
     background-color: var(--accent);
     color: var(--supporting);
     font-weight: 700;
-    padding: 1rem 3em;
     border-radius: 8px;
     border: none;
-    font-size: 120%;
     outline: none;
+  }
+
+  .startBtn {
+    padding: 1rem 3em;
+    font-size: 120%;
+  }
+
+  .restartBtn {
+    margin-top: 1em;
   }
 
   input {
@@ -196,4 +205,47 @@
 
   .gh-link {
     color: var(--white);
+  }
+
+  #player-info {
+    color: var(--white);
+    font-size: 250%;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+
+  #winner-alert {
+    text-align: center;
+    color: var(--white);
+    display: none;
+    font-weight: 900;
+    
+    background-color: var(--supporting);
+    padding: 2em;
+    border-radius: 4px;
+    position: absolute;
+    top: -200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #winner-alert.show {
+    animation: slideDown .6s ease-in forwards;
+  }
+
+
+  @keyframes slideDown {
+    from {
+      top: -100px;
+      display: block;
+      transform: scale(0.8)
+    }    
+    to {
+      display: block;
+      top: 100px;
+      transform: scale(1.4);
+    }
   }
