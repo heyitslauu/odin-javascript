@@ -13,8 +13,11 @@ const GameBoard = (() => {
     let startingCells = ["","","","","","","","","",]
     
     let player1, player2;
+
+    // Tracker to avoid persistent showing of player form
     let playersCreated = false;
     let currentPlayer;
+    
     let gameWinner;
     let moved = 0;
 
@@ -23,6 +26,7 @@ const GameBoard = (() => {
         [0,3,6], [1,4,7], [2,5,8],
         [0,4,8], [2,4,6]
     ]
+    
     //Starting asset path for 'cross' sign
     let startingSign = './assets/cross.svg';
     let startingMoveClass = 'cross';
@@ -47,16 +51,20 @@ const GameBoard = (() => {
     }
 
     const updateBlock = (e) => {
-        moved++;
-        if(gameWinner == undefined || moved != 9) {
+        moved++; //add every update
+
+        if(gameWinner == undefined) {
+            //check if there is no winner yet
             currentPlayer = currentPlayer === player1 ? player2 : player1;
             turn.textContent =  `${currentPlayer.getName()} 's Turn`;
 
             const img = document.createElement('img');
             img.src = startingSign;
+
+            //attach class to image
             img.className = startingMoveClass;
 
-            //Change the current sign to the next sign path
+            //Change the current sign/class
             startingSign = startingSign === './assets/cross.svg' ? './assets/circle.svg' : './assets/cross.svg';
             startingMoveClass = startingMoveClass === 'cross' ? 'circle' : 'cross';
             e.target.append(img)
@@ -64,7 +72,9 @@ const GameBoard = (() => {
             e.target.removeEventListener('click', updateBlock)
             checkScore();
         }
+
         if(gameWinner == undefined && moved >= 9) { 
+            // if no game winner and no cells to move left
             turn.textContent =  ``;
             winner.innerHTML = `ITS A TIE!`;
             winnerDialog.prepend(winner);
@@ -118,18 +128,20 @@ const GameBoard = (() => {
     }
 
     const resetBoard = () => {
-        gameBoard.innerHTML = ''
-        currentPlayer = player1;
+        //Reset values to initial value
         moved = 0;
+        currentPlayer = player1;
+        gameWinner = undefined;
         startingSign = './assets/cross.svg';
         startingMoveClass = 'cross';
-        createGameBoard();
+
+        gameBoard.innerHTML = ''
         winnerDialog.classList.remove('show');
+        createGameBoard();
     }
 
 
     return { createGameBoard, createPlayers, resetBoard}
-
 })();
 
 const Player = function (name, move) {
@@ -153,7 +165,7 @@ gameForm.addEventListener('submit', (e) => {
 
     GameBoard.createPlayers(playerName1, playerName2)
 })
-
+//Copy right footer
 const createCopyRight = () => {
     const footer = document.querySelector('.footer')
     const copyRight = document.createElement('p');
