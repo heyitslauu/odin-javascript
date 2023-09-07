@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+    </head>
+    <body>
+        <img src="#">
+        <button id="getNew">Get new giphy</button>
+        <div>
+        <form action="" id="searchGif">
+            <input type="text" name="" id="inputGif" required>
+            <button type="submit" id="searchGif">Search</button>
+        </form>
+        </div>
+
+        <script>
+            const img = document.querySelector('img');
+            const getNew = document.getElementById('getNew');
+
+            const searchGif = document.getElementById('searchGif');
+
+            getNew.addEventListener('click', () => {
+                getGiphy()
+            })
+
+            searchGif.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const inputGif = document.getElementById('inputGif').value
+
+                getGiphy(inputGif)
+            })
+
+            function getGiphy(query = 'cats') {
+                fetch(`https://api.giphy.com/v1/gifs/translate?api_key=QCENLxM9G4ETV088YABw0eIzMHKhx4LZ&s=${query}`, {mode: 'cors'})
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok (status: ${response.status})`);
+                    }
+                    return response.json();
+                })
+                .then(function (response) {
+                    img.src = response.data.images.original.url;
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                }); 
+            }
+
+            getGiphy();
+            
+        </script>
+    </body>
+</html>
