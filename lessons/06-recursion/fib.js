@@ -26,7 +26,7 @@ function fib(n) {
     }
 }
 
-// console.log(fib(9));
+console.log(fib(9));
 
 /* ChatGPTer solution*/
 
@@ -45,3 +45,23 @@ function fib(n) {
 //   }
   
 //   console.log(fib(9));
+
+
+/* 
+fibsRec(9)
+
+0 1 1 2 3 5 8 13 21
+
+*/
+function fibsRec(n) {
+    if (n < 2) {
+        return [0,1]
+    }
+    else {
+        let arr = fibsRec(n-1)
+        arr.push(arr[arr.length-1]+arr[arr.length-2])
+        return arr
+    }
+}
+
+console.log(fibsRec(6))
